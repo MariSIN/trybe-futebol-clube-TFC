@@ -12,6 +12,11 @@ class TeamsService {
     const result = await TeamsModel.findAll();
     return result;
   }
+
+  static async getOneTeam(id: string): Promise<ITeams | null> {
+    const result = await TeamsModel.findByPk(id);
+    return result;
+  }
 }
 
 export default TeamsService;

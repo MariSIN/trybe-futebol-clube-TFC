@@ -12,6 +12,12 @@ class TeamsController {
     const result = await TeamsService.getAllTeams();
     return res.status(200).json(result);
   };
+
+  static getOneTeam = async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+    const result = await TeamsService.getOneTeam(id);
+    return res.status(200).json(result);
+  };
 }
 
 export default TeamsController;

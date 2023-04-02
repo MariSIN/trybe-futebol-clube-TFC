@@ -3,6 +3,13 @@ export type team = {
     teamName: string,
 }
 
+export const oneTeam : team = { 
+    id: 1,
+    teamName: 'Flamengo'
+    
+}
+
+
 export const allTeams : team[] = [
     {
         id: 1,
