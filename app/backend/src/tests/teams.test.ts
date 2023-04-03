@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Testa a camada service para a rota "/teams"', () => {
+describe('GET "/teams"', () => {
 
   it('Testa se retorna todos os times', async () => {
     sinon.stub(Model, 'findAll').resolves(allTeams as TeamsModel[]);

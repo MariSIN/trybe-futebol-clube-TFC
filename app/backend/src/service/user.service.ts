@@ -1,23 +1,24 @@
 import * as bcrypt from 'bcryptjs';
+import { ModelStatic } from 'sequelize';
 import createToken from '../auth/token';
 import UsersModel from '../database/models/users.model';
 import { ILogin } from '../interfaces/ILogin';
 import statusCodes from '../statusCode';
 
 class UserService {
-  protected _usersModel: UsersModel;
+  private _usersModel: ModelStatic<UsersModel> = UsersModel;
 
-  constructor(usersModel: UsersModel) {
+  /* constructor(usersModel: UsersModel) {
     this._usersModel = usersModel;
-  }
+  } */
 
-  static async findUser(email:string): Promise<UsersModel | null> {
-    const user = await UsersModel.findOne({ where: { email } });
+  /* public async findUser(email:string): Promise<UsersModel | null> {
+    const user = await this._usersModel.findOne({ where: { email } });
 
     return user;
-  }
+  } */
 
-  static async login(userLogin: ILogin): Promise<
+  public async login(userLogin: ILogin): Promise<
   { status?: number, message?: string, token?: string }
   > {
     const { email, password } = userLogin;
@@ -26,14 +27,13 @@ class UserService {
       return { status: statusCodes.badRequest, message: 'All fields must be filled' };
     }
 
-    const user = await UsersModel.findOne({ where: { email } });
+    const user = await this._usersModel.findOne({ where: { email } });
 
     if (!user) {
       return { status: statusCodes.unauthorized, message: 'Invalid email or password' };
     }
 
-    const hash = bcrypt.hashSync(password);
-    const isEqual = bcrypt.compareSync(user.password, hash);
+    const isEqual = bcrypt.compareSync(password, user.password);
 
     if (!isEqual) {
       return { status: statusCodes.unauthorized, message: 'Invalid email or password' };

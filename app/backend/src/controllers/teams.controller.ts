@@ -2,20 +2,17 @@ import { Request, Response } from 'express';
 import TeamsService from '../service/teams.service';
 
 class TeamsController {
-  private _teamsService: TeamsService;
-
-  constructor(teamsService: TeamsService) {
-    this._teamsService = teamsService;
+  constructor(private _teamsService = new TeamsService()) {
   }
 
-  static getAllTeams = async (_req: Request, res: Response): Promise<Response> => {
-    const result = await TeamsService.getAllTeams();
+  public getAllTeams = async (_req: Request, res: Response): Promise<Response> => {
+    const result = await this._teamsService.getAllTeams();
     return res.status(200).json(result);
   };
 
-  static getOneTeam = async (req: Request, res: Response): Promise<Response> => {
+  public getOneTeam = async (req: Request, res: Response): Promise<Response> => {
     const { id } = req.params;
-    const result = await TeamsService.getOneTeam(id);
+    const result = await this._teamsService.getOneTeam(id);
     return res.status(200).json(result);
   };
 }

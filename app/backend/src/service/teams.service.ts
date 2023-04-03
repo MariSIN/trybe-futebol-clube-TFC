@@ -1,20 +1,21 @@
+import { ModelStatic } from 'sequelize';
 import TeamsModel from '../database/models/teams.model';
 import ITeams from '../interfaces/ITeams';
 
 class TeamsService {
-  private _teamsModel: TeamsModel;
+  private _teamsModel: ModelStatic<TeamsModel> = TeamsModel;
 
-  constructor(teamsModel: TeamsModel) {
+  /* constructor(teamsModel: TeamsModel) {
     this._teamsModel = teamsModel;
-  }
+  } */
 
-  static async getAllTeams(): Promise<ITeams[]> {
-    const result = await TeamsModel.findAll();
+  public async getAllTeams(): Promise<ITeams[]> {
+    const result = await this._teamsModel.findAll();
     return result;
   }
 
-  static async getOneTeam(id: string): Promise<ITeams | null> {
-    const result = await TeamsModel.findByPk(id);
+  public async getOneTeam(id: string): Promise<ITeams | null> {
+    const result = await this._teamsModel.findByPk(id);
     return result;
   }
 }

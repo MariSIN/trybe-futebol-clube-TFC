@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 
-const secret: jwt.Secret = process.env.JWT_SECRET || 'euzinha';
+const secret: jwt.Secret = process.env.JWT_SECRET || 'jwt_secret';
 
 export default function createToken(payload:object) {
   const config : jwt.SignOptions = {

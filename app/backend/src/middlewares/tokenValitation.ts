@@ -21,18 +21,4 @@ const validateToken = async (req:Request, res:Response, next: NextFunction) => {
   }
 };
 
-const validateLogin = async (req: Request, res: Response, next: NextFunction) => {
-  const { email, password } = req.body;
-  const emailRegex = /^\S+@\S+\.\S+$/;
-
-  if (!emailRegex.test(email) || password.length < 6) {
-    return res.status(statusCodes.unauthorized).json({ message: 'Invalid email or password' });
-  }
-
-  next();
-};
-
-export default {
-  validateToken,
-  validateLogin,
-};
+export default validateToken;
