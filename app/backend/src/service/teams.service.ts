@@ -5,10 +5,6 @@ import ITeams from '../interfaces/ITeams';
 class TeamsService {
   private _teamsModel: ModelStatic<TeamsModel> = TeamsModel;
 
-  /* constructor(teamsModel: TeamsModel) {
-    this._teamsModel = teamsModel;
-  } */
-
   public async getAllTeams(): Promise<ITeams[]> {
     const result = await this._teamsModel.findAll();
     return result;

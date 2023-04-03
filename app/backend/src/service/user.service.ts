@@ -8,24 +8,10 @@ import statusCodes from '../statusCode';
 class UserService {
   private _usersModel: ModelStatic<UsersModel> = UsersModel;
 
-  /* constructor(usersModel: UsersModel) {
-    this._usersModel = usersModel;
-  } */
-
-  /* public async findUser(email:string): Promise<UsersModel | null> {
-    const user = await this._usersModel.findOne({ where: { email } });
-
-    return user;
-  } */
-
   public async login(userLogin: ILogin): Promise<
   { status?: number, message?: string, token?: string }
   > {
     const { email, password } = userLogin;
-
-    if (!email || !password) {
-      return { status: statusCodes.badRequest, message: 'All fields must be filled' };
-    }
 
     const user = await this._usersModel.findOne({ where: { email } });
 
