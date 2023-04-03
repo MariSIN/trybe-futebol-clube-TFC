@@ -16,6 +16,14 @@ class UserController {
 
     return res.status(statusCodes.ok).json({ token: result.token });
   };
+
+  public loginRole = async (req: Request, res: Response): Promise<Response> => {
+    const { role } = req.body.userToken;
+
+    const userRole = await this._usersService.loginRole(role);
+
+    return res.status(statusCodes.ok).json({ role: userRole?.role });
+  };
 }
 
 export default UserController;

@@ -16,7 +16,7 @@ const validateToken = async (req:Request, res:Response, next: NextFunction) => {
     next();
   } catch (err) {
     return res.status(statusCodes.unauthorized).json({
-      message: 'Invalid Token',
+      message: 'Token must be a valid token',
     });
   }
 };

@@ -3,6 +3,7 @@ import { ModelStatic } from 'sequelize';
 import createToken from '../auth/token';
 import UsersModel from '../database/models/users.model';
 import { ILogin } from '../interfaces/ILogin';
+import IUser from '../interfaces/IUser';
 import statusCodes from '../statusCode';
 
 class UserService {
@@ -30,6 +31,13 @@ class UserService {
     const token = createToken(rest);
 
     return { token };
+  }
+
+  public async loginRole(role: string): Promise<IUser | null> {
+    const users = await this._usersModel.findOne({
+      where: { role },
+    });
+    return users;
   }
 }
 
