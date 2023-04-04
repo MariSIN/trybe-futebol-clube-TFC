@@ -26,9 +26,9 @@ class UserService {
       return { status: statusCodes.unauthorized, message: 'Invalid email or password' };
     }
 
-    const { password: passwordUser, ...rest } = user.dataValues;
+    const { id, role, username } = user;
 
-    const token = createToken(rest);
+    const token = createToken({ id, role, username, email });
 
     return { token };
   }

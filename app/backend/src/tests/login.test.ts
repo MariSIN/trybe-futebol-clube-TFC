@@ -1,4 +1,5 @@
 import * as chai from 'chai';
+import * as jwt from 'jsonwebtoken';
 import * as sinon from 'sinon';
 // @ts-ignore
 import chaiHttp = require('chai-http');
@@ -6,7 +7,7 @@ import chaiHttp = require('chai-http');
 import { Model } from 'sequelize';
 import { app } from '../app';
 import Users from '../database/models/Users.model';
-import { theLogin, theUser, userToken } from './mock/mockUser';
+import { theLogin, theUser, userToken, verify } from './mock/mockUser';
 
 chai.use(chaiHttp);
 
@@ -91,7 +92,7 @@ describe('POST "/login"', () => {
 
 	describe('Quando a requisição é feita com sucesso', () => {
 		it('deve retornar um status 200 caso seja possível fazer o login', async () => {
-			// sinon.stub(Model, 'findOne').resolves(theUser as Users);
+			sinon.stub(Model, 'findOne').resolves(theUser as Users);
 			const httpResponse = await chai
 				.request(app)
 				.post('/login')
@@ -108,20 +109,20 @@ describe('GET /login/role', () => {
 
 	describe('Quando o token não for informado', () => {
 		it('deve retornar o status 401 e uma messagem com "token not found"', async () => {
-			const httpResponse = await chai.request(app).get('login/role');
-
+			const httpResponse = await chai.request(app).get('/login/role');
+			
 			expect(httpResponse.status).to.be.deep.equal(401);
 			expect(httpResponse.body).to.be.deep.equal({
 				message: 'Token not found',
 			});
 		});
 	});
-
+	
 	describe('Quando o token for inválido', () => {
 		it('deve retornar o status 401 e uma mensagem com "Token must be a valid token"', async () => {
 			const httpResponse = await chai
-				.request(app)
-				.get('login/role')
+			.request(app)
+				.get('/login/role')
 				.set('Authorization', 'token');
 
 			expect(httpResponse.status).to.equal(401);
@@ -130,12 +131,14 @@ describe('GET /login/role', () => {
 			});
 		});
 	});
-
+	
 	describe('Quando existir um token e ele for válido', () => {
 		it('deve retornar o status 200 e um objeto com a role do user', async () => {
+			sinon.stub(jwt,'verify').returns(verify as any);
+
 			const httpResponse = await chai
 				.request(app)
-				.get('login/role')
+				.get('/login/role')
 				.set('Authorization', userToken);
 
 			expect(httpResponse.status).to.equal(200);
