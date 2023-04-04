@@ -8,6 +8,9 @@ export const theLogin : login = {
     password: 'secret_admin',
 }
 
+
+export const userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBZG1pbiIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNjgwNjIzNTA1LCJleHAiOjE2ODA4ODI3MDV9.lvJzp48iWA575y18FbkKTa3atOTNfjHiRVzhr4KNBro'
+
 export type user = {
     id: 1,
     username: string,

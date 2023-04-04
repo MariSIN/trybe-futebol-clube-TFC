@@ -1,5 +1,5 @@
 import { ModelStatic } from 'sequelize';
-import TeamsModel from '../database/models/teams.model';
+import TeamsModel from '../database/models/Teams.model';
 import ITeams from '../interfaces/ITeams';
 
 class TeamsService {

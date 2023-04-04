@@ -5,8 +5,8 @@ import chaiHttp = require('chai-http');
 
 import { Model } from 'sequelize';
 import { app } from '../app';
-import Users from '../database/models/users.model';
-import { theLogin, theUser } from './mock/mockUser';
+import Users from '../database/models/Users.model';
+import { theLogin, theUser, userToken } from './mock/mockUser';
 
 chai.use(chaiHttp);
 
@@ -76,7 +76,7 @@ describe('POST "/login"', () => {
 			});
 		});
 
-        it('deve retornar um status 401 caso a senha esteja incorreta', async () => {
+		it('deve retornar um status 401 caso a senha esteja incorreta', async () => {
 			sinon.stub(Model, 'findOne').resolves(theUser as Users);
 			const httpResponse = await chai.request(app).post('/login').send({
 				email: 'admin@admin.com',
@@ -87,7 +87,6 @@ describe('POST "/login"', () => {
 				message: 'Invalid email or password',
 			});
 		});
-
 	});
 
 	describe('Quando a requisição é feita com sucesso', () => {
@@ -99,7 +98,48 @@ describe('POST "/login"', () => {
 				.send(theLogin);
 
 			expect(httpResponse.status).to.equal(200);
-            expect(httpResponse.body).to.have.key('token');
+			expect(httpResponse.body).to.have.key('token');
+		});
+	});
+});
+
+describe('GET /login/role', () => {
+	afterEach(sinon.restore);
+
+	describe('Quando o token não for informado', () => {
+		it('deve retornar o status 401 e uma messagem com "token not found"', async () => {
+			const httpResponse = await chai.request(app).get('login/role');
+
+			expect(httpResponse.status).to.be.deep.equal(401);
+			expect(httpResponse.body).to.be.deep.equal({
+				message: 'Token not found',
+			});
+		});
+	});
+
+	describe('Quando o token for inválido', () => {
+		it('deve retornar o status 401 e uma mensagem com "Token must be a valid token"', async () => {
+			const httpResponse = await chai
+				.request(app)
+				.get('login/role')
+				.set('Authorization', 'token');
+
+			expect(httpResponse.status).to.equal(401);
+			expect(httpResponse.body).to.be.deep.equal({
+				message: 'Token must be a valid token',
+			});
+		});
+	});
+
+	describe('Quando existir um token e ele for válido', () => {
+		it('deve retornar o status 200 e um objeto com a role do user', async () => {
+			const httpResponse = await chai
+				.request(app)
+				.get('login/role')
+				.set('Authorization', userToken);
+
+			expect(httpResponse.status).to.equal(200);
+			expect(httpResponse.body).to.have.property('role');
 		});
 	});
 });

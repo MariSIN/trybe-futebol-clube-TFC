@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 import { ModelStatic } from 'sequelize';
 import createToken from '../auth/token';
-import UsersModel from '../database/models/users.model';
+import UsersModel from '../database/models/Users.model';
 import { ILogin } from '../interfaces/ILogin';
 import IUser from '../interfaces/IUser';
 import statusCodes from '../statusCode';
