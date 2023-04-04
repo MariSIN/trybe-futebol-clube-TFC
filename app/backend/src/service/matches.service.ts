@@ -15,6 +15,18 @@ class MatchesService {
     });
     return result;
   }
+
+  public async filteredMatches(inProgress: boolean): Promise<IMatches[]> {
+    const result = await this._matchesModel.findAll({
+      include: [
+        { model: Teams, as: 'homeTeam', attributes: ['teamName'] },
+        { model: Teams, as: 'awayTeam', attributes: ['teamName'] },
+      ],
+      where: { inProgress },
+    });
+
+    return result;
+  }
 }
 
 export default MatchesService;

@@ -7,7 +7,7 @@ import chaiHttp = require('chai-http');
 import { Model } from 'sequelize';
 import { app } from '../app';
 import Users from '../database/models/Users.model';
-import { theLogin, theUser, userToken, verify } from './mock/mockUser';
+import { theLogin, theUser, userToken, verifyToken } from './mock/mockUser';
 
 chai.use(chaiHttp);
 
@@ -134,7 +134,7 @@ describe('GET /login/role', () => {
 	
 	describe('Quando existir um token e ele for válido', () => {
 		it('deve retornar o status 200 e um objeto com a role do user', async () => {
-			sinon.stub(jwt,'verify').returns(verify as any);
+			sinon.stub(jwt,'verify').returns(verifyToken as any);
 
 			const httpResponse = await chai
 				.request(app)

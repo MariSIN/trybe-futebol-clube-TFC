@@ -5,9 +5,16 @@ class MatchesController {
   constructor(private _matchesService = new MatchesService()) {
   }
 
-  public getAllMatches = async (_req: Request, res: Response): Promise<Response> => {
-    const result = await this._matchesService.getAllMatches();
-    return res.status(200).json(result);
+  public getAllMatches = async (req: Request, res: Response): Promise<Response> => {
+    const { inProgress } = req.query;
+
+    if (!inProgress) {
+      const allMatches = await this._matchesService.getAllMatches();
+      return res.status(200).json(allMatches);
+    }
+
+    const filteredMatches = await this._matchesService.filteredMatches(inProgress === 'true');
+    return res.status(200).json(filteredMatches);
   };
 }
 
