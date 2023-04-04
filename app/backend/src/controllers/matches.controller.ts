@@ -16,6 +16,13 @@ class MatchesController {
     const filteredMatches = await this._matchesService.filteredMatches(inProgress === 'true');
     return res.status(200).json(filteredMatches);
   };
+
+  public finishMatches = async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+
+    const finish = await this._matchesService.finishMatches(id);
+    return res.status(200).json(finish);
+  };
 }
 
 export default MatchesController;
