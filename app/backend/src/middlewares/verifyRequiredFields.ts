@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import statusCodes from '../statusCode';
 
 const requestRequiredFields = {
   login: ['email', 'password'],
@@ -10,7 +11,7 @@ const verifyRequiredFields = (key: keyof typeof requestRequiredFields) =>
 
     for (let i = 0; i < requireFields.length; i += 1) {
       if (!req.body[requireFields[i]]) {
-        return res.status(400).json({
+        return res.status(statusCodes.badRequest).json({
           message: 'All fields must be filled',
         });
       }
