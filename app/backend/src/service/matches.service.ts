@@ -51,6 +51,7 @@ class MatchesService {
 
   public async createMatch(create: INewMatches): Promise<IMatches> {
     const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = create;
+
     const match = await this._matchesModel.create({
       homeTeamId,
       awayTeamId,
