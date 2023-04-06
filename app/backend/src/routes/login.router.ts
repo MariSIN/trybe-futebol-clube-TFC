@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import UserController from '../controllers/user.controller';
 import validateToken from '../middlewares/tokenValitation';
-import LoginValitadion from '../middlewares/validationsLogin';
+import LoginValitadion from '../middlewares/loginValidations';
 import verifyRequiredFields from '../middlewares/verifyRequiredFields';
 
 const loginRouter = Router();
