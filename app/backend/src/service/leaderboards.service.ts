@@ -6,7 +6,7 @@ import ILeaderboard from '../interfaces/ILeaderboards';
 class LeaderboardService {
   private _matchesModel: ModelStatic<MatchesModel> = MatchesModel;
 
-  public async getHomeTeamPerformance(url: string):Promise<ILeaderboard[]> {
+  public async getTeamPerformance(url: string):Promise<ILeaderboard[]> {
     if (url === '/leaderboard/home') {
       const leaderboardHome = await this._matchesModel.sequelize?.query(
         queryHomePerformance,
