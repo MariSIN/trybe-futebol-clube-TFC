@@ -113,7 +113,7 @@ describe('GET /login/role', () => {
 			const httpResponse = await chai.request(app).get('/login/role');
 
 			expect(httpResponse.status).to.be.deep.equal(statusCodes.unauthorized);
-			expect(httpResponse.body).to.be.deep.equal({
+			expect(httpResponse.body).to.deep.equal({
 				message: 'Token not found',
 			});
 		});
@@ -127,7 +127,7 @@ describe('GET /login/role', () => {
 				.set('Authorization', 'token');
 
 			expect(httpResponse.status).to.equal(statusCodes.unauthorized);
-			expect(httpResponse.body).to.be.deep.equal({
+			expect(httpResponse.body).to.deep.equal({
 				message: 'Token must be a valid token',
 			});
 		});

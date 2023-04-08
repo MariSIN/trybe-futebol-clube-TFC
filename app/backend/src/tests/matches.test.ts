@@ -31,8 +31,8 @@ describe('GET /matches', () => {
 
 			const httpResponse = await chai.request(app).get('/matches');
 
-			expect(httpResponse.status).to.be.equal(statusCodes.ok);
-			expect(httpResponse.body).to.be.deep.equal(mockMatches);
+			expect(httpResponse.status).to.equal(statusCodes.ok);
+			expect(httpResponse.body).to.deep.equal(mockMatches);
 		});
 	});
 
@@ -46,9 +46,9 @@ describe('GET /matches', () => {
 				.request(app)
 				.get('/matches?inProgress=true');
 
-			expect(httpResponse.status).to.be.equal(statusCodes.ok);
+			expect(httpResponse.status).to.equal(statusCodes.ok);
 
-			expect(httpResponse.body).to.be.deep.equal(mockMatchesInProgressTrue);
+			expect(httpResponse.body).to.deep.equal(mockMatchesInProgressTrue);
 		});
 
 		it('false: deve retornar um status 200 com as partidas finalizadas', async () => {
@@ -60,9 +60,9 @@ describe('GET /matches', () => {
 				.request(app)
 				.get('/matches?inProgress=false');
 
-			expect(httpResponse.status).to.be.equal(statusCodes.ok);
+			expect(httpResponse.status).to.equal(statusCodes.ok);
 
-			expect(httpResponse.body).to.be.deep.equal(mockMatchesInProgressFalse);
+			expect(httpResponse.body).to.deep.equal(mockMatchesInProgressFalse);
 		});
 	});
 });
@@ -74,8 +74,8 @@ describe('PATCH /matches/:id/finish', () => {
 		it('deve retornar o status 401 e uma messagem com "token not found"', async () => {
 			const httpResponse = await chai.request(app).patch('/matches/1/finish');
 
-			expect(httpResponse.status).to.be.deep.equal(statusCodes.unauthorized);
-			expect(httpResponse.body).to.be.deep.equal({
+			expect(httpResponse.status).to.deep.equal(statusCodes.unauthorized);
+			expect(httpResponse.body).to.deep.equal({
 				message: 'Token not found',
 			});
 		});
@@ -89,7 +89,7 @@ describe('PATCH /matches/:id/finish', () => {
 				.set('Authorization', 'token');
 
 			expect(httpResponse.status).to.equal(statusCodes.unauthorized);
-			expect(httpResponse.body).to.be.deep.equal({
+			expect(httpResponse.body).to.deep.equal({
 				message: 'Token must be a valid token',
 			});
 		});
@@ -123,8 +123,8 @@ describe('POST /matches', () => {
 		it('deve retornar o status 401 e uma messagem com "token not found"', async () => {
 			const httpResponse = await chai.request(app).post('/matches');
 
-			expect(httpResponse.status).to.be.deep.equal(statusCodes.unauthorized);
-			expect(httpResponse.body).to.be.deep.equal({
+			expect(httpResponse.status).to.deep.equal(statusCodes.unauthorized);
+			expect(httpResponse.body).to.deep.equal({
 				message: 'Token not found',
 			});
 		});
@@ -138,7 +138,7 @@ describe('POST /matches', () => {
 				.set('Authorization', 'token');
 
 			expect(httpResponse.status).to.equal(statusCodes.unauthorized);
-			expect(httpResponse.body).to.be.deep.equal({
+			expect(httpResponse.body).to.deep.equal({
 				message: 'Token must be a valid token',
 			});
 		});
