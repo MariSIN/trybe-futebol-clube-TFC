@@ -14,6 +14,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('GET "/teams"', () => {
+  afterEach(sinon.restore);
 
   it('Testa se retorna todos os times', async () => {
     sinon.stub(Model, 'findAll').resolves(allTeams as TeamsModel[]);
@@ -22,8 +23,6 @@ describe('GET "/teams"', () => {
 
     expect(response.status).to.be.deep.equal(200);
     expect(response.body).to.be.deep.equal(allTeams);
-
-   (Model.findAll as sinon.SinonStub).restore();
 
   });
 
@@ -35,6 +34,5 @@ describe('GET "/teams"', () => {
     expect(response.body).to.be.deep.equal(oneTeam);
     expect(response.status).to.be.deep.equal(200);
     
-    (Model.findByPk as sinon.SinonStub).restore();
   });
 });

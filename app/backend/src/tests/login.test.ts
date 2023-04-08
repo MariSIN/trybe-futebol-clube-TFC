@@ -7,6 +7,7 @@ import chaiHttp = require('chai-http');
 import { Model } from 'sequelize';
 import { app } from '../app';
 import Users from '../database/models/Users.model';
+import statusCodes from '../statusCode';
 import { theLogin, theUser, userToken, verifyToken } from './mock/mockUser';
 
 chai.use(chaiHttp);
@@ -110,38 +111,38 @@ describe('GET /login/role', () => {
 	describe('Quando o token não for informado', () => {
 		it('deve retornar o status 401 e uma messagem com "token not found"', async () => {
 			const httpResponse = await chai.request(app).get('/login/role');
-			
-			expect(httpResponse.status).to.be.deep.equal(401);
+
+			expect(httpResponse.status).to.be.deep.equal(statusCodes.unauthorized);
 			expect(httpResponse.body).to.be.deep.equal({
 				message: 'Token not found',
 			});
 		});
 	});
-	
+
 	describe('Quando o token for inválido', () => {
 		it('deve retornar o status 401 e uma mensagem com "Token must be a valid token"', async () => {
 			const httpResponse = await chai
-			.request(app)
+				.request(app)
 				.get('/login/role')
 				.set('Authorization', 'token');
 
-			expect(httpResponse.status).to.equal(401);
+			expect(httpResponse.status).to.equal(statusCodes.unauthorized);
 			expect(httpResponse.body).to.be.deep.equal({
 				message: 'Token must be a valid token',
 			});
 		});
 	});
-	
+
 	describe('Quando existir um token e ele for válido', () => {
 		it('deve retornar o status 200 e um objeto com a role do user', async () => {
-			sinon.stub(jwt,'verify').returns(verifyToken as any);
+			sinon.stub(jwt, 'verify').returns(verifyToken as any);
 
 			const httpResponse = await chai
 				.request(app)
 				.get('/login/role')
 				.set('Authorization', userToken);
 
-			expect(httpResponse.status).to.equal(200);
+			expect(httpResponse.status).to.equal(statusCodes.ok);
 			expect(httpResponse.body).to.have.property('role');
 		});
 	});
