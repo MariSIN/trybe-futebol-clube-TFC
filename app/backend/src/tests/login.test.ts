@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('POST "/login"', () => {
+describe('POST /login', () => {
 	afterEach(sinon.restore);
 
 	describe('Quando algum parâmetro obrigatório não for informado', () => {

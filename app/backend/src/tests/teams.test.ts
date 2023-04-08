@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('GET "/teams"', () => {
+describe('GET /teams', () => {
 	afterEach(sinon.restore);
 
 	describe('Quando a solicitação é feita com sucesso', () => {
