@@ -66,13 +66,6 @@ Na sua máquina você deve ter:
 
 </details>
 
-<details id='sequelize'>
-  <summary><strong>🎲 Sequelize</strong></summary>
-  <br/>
-    ![Exemplo banco de dados](assets/diagrama-er.png)
-
-</details>
-
 
 <details id='testes-de-cobertura'>
   <summary><strong> Testes de cobertura </strong></summary><br/>
@@ -137,7 +130,6 @@ Esse projeto é composto de 4 fluxos principais:
 
 ## Database
   - Comece rodando o comando `npm run build` na pasta do `back-end` para fazer o _build_ da aplicação;
-  - [Nessa seção](#sequelize) temos o diagrama de entidades;
 
 ## Fluxo 1: Teams (Times)
 
