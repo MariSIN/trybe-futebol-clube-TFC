@@ -2,7 +2,7 @@
 
 O `TFC` é um site informativo sobre partidas e classificações de futebol! ⚽️
 
-O projeto consiste em desenvolver um back-end dockerizado utilizando a modelagem de dados com Sequelize. O objetivo é criar uma API para adicionar partidas de futebol, que só pode ser acessada com um token de login. Há um relacionamento entre as tabelas teams e matches, e as regras de negócio devem ser implementadas para popular adequadamente a tabela disponível no front-end. O front-end já está provido no projeto e a API deve ser capaz de ser consumida por ele.
+O projeto consistiu em desenvolver um back-end dockerizado utilizando a modelagem de dados com Sequelize. O objetivo é criar uma API para adicionar partidas de futebol, que só pode ser acessada com um token de login. Há um relacionamento entre as tabelas teams e matches, e as regras de negócio devem ser implementadas para popular adequadamente a tabela disponível no front-end. O front-end já está provido no projeto e a API deve ser capaz de ser consumida por ele.
 
 <details>
 <summary><strong> Estrutura do projeto</strong></summary><br />
